@@ -17,7 +17,9 @@ Copying takes much longer, especially in the shared drive, is confusing and take
 
 ### Improvements
 
-- add logging
+- move shortlisted abstracts to respective directories
+- add instructions to readme for remaining scripts
+- add logging to remaining scripts (ensure no overlaps)
 - add functionality to move / copy and sort relevant abstracts ('.txt' files)
 - add adjustment for MENA and Asia prize, which have no categories so don't need an 'all_shortlists.xlsx' file.
 - incorporate other file handling into the same project and create a GUI for running the relevant scripts
