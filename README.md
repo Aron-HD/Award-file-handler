@@ -1,9 +1,9 @@
-# Award file handler
----
+# AWARD FILE HANDLER
+
 Handles downloaded assets for awards entries and sorts them, separates shortlisted and winning papers and abstracts from other entries.
 
 ---
-### Edited assets
+### EDITED ASSETS
 ---
 
 #### *abstracts_strip.py*
@@ -15,15 +15,15 @@ After judges scoresheets are returned and the shortlists are calculated from the
 #### *compile_papers.py*
 After papers have come back from editors, this uses the csv files created by 'compile_csvs.py' to do two things:
 
-**1.** copy the edited versions of the shortlisted papers from the relevant folders in the drive (something like '/Returned papers & abstracts')
-**2.** grab the shortlisted pdfs from the pdfs sent to judging groups in the first round and copy them to a '/pdfs' folder
+1. copy the edited versions of the shortlisted papers from the relevant folders in the drive (something like '/Returned papers & abstracts')
+2. grab the shortlisted pdfs from the pdfs sent to judging groups in the first round and copy them to a '/pdfs' folder
 
 Currently it copies the files to avoid them being sent to a location that doesn't exist, but as I become more confident in the reliability of the script it will move them (using shutil module) instead.
 
 Copying takes much longer, especially in the shared drive, is confusing and takes up unnecessary space.
 
 ---
-### Raw Assets
+### RAW ASSETS
 ---
 
 #### *cut_categories.py*
@@ -42,7 +42,7 @@ Moves processed assets and files them in relevant folders including, entry forms
 Sorts processed entry forms into corresponding category folders.
 
 ---
-### Improvements
+### IMPROVEMENTS
 ---
 
 - create a script to setup correct folders for new award cycles
