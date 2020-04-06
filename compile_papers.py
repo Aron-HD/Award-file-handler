@@ -24,29 +24,31 @@ def setup_custom_logger(name):
     logger.addHandler(screen_handler)
     return logger
 
-logger = setup_custom_logger('logs/compile-papers-log.txt')
+logger = setup_custom_logger('logs/compile-papers.log')
 
-def file_copier(files, dst):
+def file_copier(file, dst):
 
-	for file in files:
+	if not 'MARKUP' in file: # skips duplicated markup docs
 		fn = file.split('\\')[-1]
 		try:
 			copy(file, f'{dst}\\{fn}')
 			logger.info(fn)
 		except Exception as e:
 			logger.error(e)
-			continue
+			# continue
 
-def file_mover(files, dst):
+def file_mover(file, dst):
 
-	for file in files:
-		fn = file.split('\\')[-1]
-		try:
-			move(file, f'{dst}\\{fn}')
-			logger.info(fn)
-		except Exception as e:
-			logger.error(e)
-			continue
+	fn = file.split('\\')[-1]
+	try:
+		move(file, f'{dst}\\{fn}')
+		logger.info(fn)
+	except Exception as e:
+		logger.error(e)
+		# continue
+
+def check_dirs():
+	pass
 
 def main():
 	'''moves or copies assets for shortlisted entries only'''
@@ -63,8 +65,6 @@ def main():
 		print('\n\t- incorrect input')
 		main()
 	else:
-
-		# check_dirs() # works
 		logger.info(f"checking dirs exist in '{path}'...")
 		for f in csv_files:
 			# this will become the new directory name
@@ -82,14 +82,18 @@ def main():
 			mrk_docx_dst = path + fr'\\edited papers\\murkies\\{dn}'
 			mrk_abs_dst = path + fr'\\abstracts\\murkies\\{dn}'
 
+			destinations = [docx_dst, pdf_dst, abs_dst, ent_docx_dst, ent_abs_dst, mrk_abs_dst, mrk_docx_dst]
+
 			logger.info(f'### {dn} ###')
-			for dst in [docx_dst, pdf_dst, abs_dst, ent_docx_dst, ent_abs_dst, mrk_abs_dst, mrk_docx_dst]:
+
+			for dst in destinations:
 				dst = Path(dst)
 				if not dst.is_dir():
 					dst.mkdir(parents=True, exist_ok=True)
 					print('made dir:', str(dst).split('\\')[-3:])
+					
 			logger.info('dir check finished')
-
+			#
 			try:
 				with open(f, newline='') as csvf:
 					r = csv.DictReader(csvf)
@@ -97,18 +101,19 @@ def main():
 						# catch blank rows 
 						if len(row['ID']) > 3:
 							ID = row['ID']
-							docx_files = iglob(fr'{path}\\Returned papers & abstracts\\**\\{ID}*.docx', recursive=True)
-							pdf_files = iglob(fr'{path}\\Judges papers\\**\\*{ID}*.pdf', recursive=True)
-							txt_files = iglob(fr'Abstracts cleanup\\abstracts\\{ID}*.txt', recursive=True)
+							docx_file = iglob(fr'{path}\\Returned papers & abstracts\\**\\{ID}*.docx', recursive=True)
+							pdf_file = iglob(fr'{path}\\Judges papers\\**\\*{ID}*.pdf', recursive=True)
+							txt_file = iglob(fr'Abstracts cleanup\\abstracts\\{ID}*.txt', recursive=True)
 
 							if select == 1:
 								pass
-								file_copier(docx_files, docx_dst)
+								# file_copier(docx_file, docx_dst)
 							elif select == 2:
 								pass
-								file_copier(pdf_files, pdf_dst)
+								# file_copier(pdf_file, pdf_dst)
 							elif select == 3:
-								file_mover(txt_files, abs_dst)
+								# file_mover(txt_file, abs_dst)
+								pass
 
 			except Exception as e:
 				logger.error(e)

@@ -1,4 +1,7 @@
 notes.md
 *.txt
+*.log
+/__pycache__
+/_archive
 /from Seagate
-/Abstracts cleanup/_archive
+/Abstracts cleanup
