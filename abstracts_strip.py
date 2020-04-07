@@ -27,10 +27,10 @@ def stripchars(target_folder):
 		p = Path(filepath)
 		fn = p.parts[-1]
 
-		with open(filepath, encoding='1252') as file:
+		with open(filepath, encoding='cp1252') as file:
 			logger.info(f'read: {fn}')
 			for line in file:
-				output = line.strip().replace("Ð", "–").replace("Õ", "'").replace("Ô", "'").replace("Ž", "é").replace("Ò", "'").replace("Ó", "'").replace("ª", "™").replace("’", "'").replace("‘", "'")
+				output = line.strip().replace("Ð", "–").replace("Õ", "'").replace("Ô", "'").replace("Ž", "é").replace("Ò", "'").replace("Ó", "'").replace("ª", "™").replace("’", "'").replace("‘", "'").replace("–","–")
 				# only write back the block paragraph by stripping other shorter lines
 				if len(output) >= 7:
 					with open(filepath, 'w') as file:

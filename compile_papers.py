@@ -38,7 +38,7 @@ def file_copier(file, dst):
 			# continue
 
 def file_mover(file, dst):
-
+	
 	fn = file.split('\\')[-1]
 	try:
 		move(file, f'{dst}\\{fn}')
