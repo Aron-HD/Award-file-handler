@@ -1,6 +1,7 @@
 from shutil import move, Error
 from glob import glob
 from pathlib import Path
+from natsort import natsorted as nat
 import os, PySimpleGUI as sg
 
 
@@ -19,15 +20,19 @@ def move_file(file, dst):
 def extensions(ext, path, dst):
 	"""Pass in extension, path to file and destination"""
 
-	print(f'\n\t- moved: {ext} -> "{dst}"\n')
+	files = nat(glob(rf'{path}\\*{ext}'))
+	short_dst = dst.split('\\')[-1]
 
-	for file in glob(rf'{path}\*{ext}'):
-		
-		if not os.path.exists(dst): # so that we don't send files to hell
-			os.mkdir(dst)
-			move_file(file, dst)
-		else:
-			move_file(file, dst)
+	if len(files) >= 1:
+		print(f"\n\t- moving: {ext} -> '{short_dst}' folder\n")
+
+		for file in files:
+			
+			if not os.path.exists(dst): # so that we don't send files to hell
+				os.mkdir(dst)
+				move_file(file, dst)
+			else:
+				move_file(file, dst)
 
 def dir_handler(path):
 	"""Delete all empty folders, print remaining""" # add logging
@@ -54,18 +59,18 @@ def main():
 	sg.theme('DarkPurple4')
 	
 	layout = [
-		# [sg.Output(size=(42,5))],
-		[sg.Text('Paste a path here:')],
+		[sg.Output(size=(42,20))],
+		[sg.Text('Paste award root folder path (Seagate HD) here:')],
 		[sg.InputText()],
 		[sg.Submit(), sg.Cancel()]
 	]
 
 	window = sg.Window(
-		'Awards Setup',
+		'Move Assets',
 		layout,
 		# icon=icon_file,
-		keep_on_top=True,
-		grab_anywhere=True
+		keep_on_top=True
+		# grab_anywhere=True
 	) 
 
 	while True:
@@ -80,27 +85,36 @@ def main():
 					path = values[0]
 
 					if Path(path).is_dir():
-
 						p = Path(path)
-						print('working in path:\n', p)
+
+						print('\n### Script Started ###\n\nworking in path:\n', p)
 						
-						fpath = path + r'\dropbox assets\temp\*'
-						zip_path = path + r'\dropbox assets' # zips are in the previous folder
+						fpath = path + r'\\dropbox assets\\temp\\*'
+						zip_path = path + r'\\dropbox assets' # zips are in the previous folder
 
 						for key, value in dictionary.items():
 							if key != 'zips':
 								for i in value:
-									extensions(i, fpath, f'{path}/{key}')
+									extensions(i, fpath, f'{path}\\{key}')
 							elif key == 'zips':
 								for i in value:
-									extensions(i, zip_path, f'{path}/{key}')
+									extensions(i, zip_path, f'{path}\\{key}')
 
 						dir_handler(fpath)
+						print('\n### Script Finished ###\n')
+
+					else:
+						print('Path maybe invalid:', path)
+
+				else:
+					print('Path not entered')
 
 			except Exception as e:
 				raise e
 				
 	window.close()
+
+	
 
 if __name__ == '__main__':
 	main()
