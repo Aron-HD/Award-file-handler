@@ -15,7 +15,7 @@ After judges scoresheets are returned and the shortlists are calculated from the
 #### *compile_papers.py*
 After papers have come back from editors, this uses the csv files created by 'compile_csvs.py' to do two things:
 
-1. copy the edited versions of the shortlisted papers from the relevant folders in the drive (something like '/Returned papers & abstracts')
+1. match and copy the edited versions of the shortlisted papers from the relevant folders in the drive (something like '/Returned papers & abstracts')
 2. grab the shortlisted pdfs from the pdfs sent to judging groups in the first round and copy them to a '/pdfs' folder
 
 Currently it copies the files to avoid them being sent to a location that doesn't exist, but as I become more confident in the reliability of the script it will move them (using shutil module) instead.
@@ -35,11 +35,14 @@ Prints an enumerated list of various different folders
 #### *extract_zip.py*
 Unzips downloaded assets - currently restricted from adding rar functionality as can't add to %PATH% due to admin restrictions.
 
-#### *move_files.py*
+#### *move_assets.py*
 Moves processed assets and files them in relevant folders including, entry forms, surveys, any video types and zip files.
 
 #### *categorise_files.py*
-Sorts processed entry forms into corresponding category folders.
+Sorts processed entry forms into corresponding category folders. Needs updating for categories of any award and also made more pythonic.
+
+#### *move_entrants.py*
+Needs updating for other awards, GUI adding.
 
 ---
 ### IMPROVEMENTS
