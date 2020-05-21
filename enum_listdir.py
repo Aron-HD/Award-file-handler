@@ -17,8 +17,8 @@ def list_txts(path):
 def list_vids(path):
 	files = nat(iglob(fr'{path}\\**\\*', recursive=True))
 
-	[print('[' + str(file[0]) + '] \t- ' + file[1]) for file in enumerate(
-		[Path(file).parts[-1] for file in files]
+	[print('[' + str(file[0]) + '] \t ' + file[1]) for file in enumerate(
+		[Path(file).parts[-1] for file in files], 1
 		) if [i for i in ['.mov', '.mp4', '.avi', '.m4v']] not in file]
 
 	return files
@@ -27,7 +27,7 @@ def copy_file(files, dst):
 	for file in enumerate(files):
 		p = Path(file[-1])
 
-		print('[' + str(file[0]) + '] \t- ' + file[1])
+		print('[' + str(file[0]) + '] \t ' + file[1])
 		# copy(p, dst)
 		# move(p, dst)
 
@@ -39,14 +39,11 @@ def main():
 
 	path2 = r'T:\Ascential Events\WARC\Backup Server\Loading\Monthly content for Newgen\Project content - March 2020\WARC Awards 2020\Returned papers & abstracts'
 
-	vid_path = r'T:\Ascential Events\WARC\Backup Server\Loading\Monthly content for Newgen\Project content - March 2020\WARC Awards 2020\Videos'
+	vid_path = r'T:\Ascential Events\WARC\Backup Server\Loading\Monthly content for Newgen\Project content - May 2020\MENA Prize 2020\videos'
 
 	dst_dir = r'Abstracts cleanup\abstracts'
 
-	print('''\
-  Num 	|	File
-------------------\
-''')
+	print('Num	File')
 
 	# move_file(list_txts(path2), dst_dir)
 
