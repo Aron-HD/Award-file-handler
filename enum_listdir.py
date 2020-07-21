@@ -4,7 +4,7 @@ from pathlib import Path
 from shutil import copy, move
 
 def list_docxs(path):
-	[print(f) for f in enumerate([Path(file).parts[-1] for file in nat(iglob(fr'{path}\\**\\*.docx', recursive=True))])]
+	[print(f) for f in enumerate([Path(file).parts[-1] for file in nat(iglob(fr'{path}\\**\\*.docx', recursive=True))], start=1)]
 
 def list_txts(path):
 	files = nat(iglob(fr'{path}\\**\\*.txt', recursive=True))
@@ -19,7 +19,7 @@ def list_vids(path):
 
 	[print('[' + str(file[0]) + '] \t ' + file[1]) for file in enumerate(
 		[Path(file).parts[-1] for file in files], 1
-		) if [i for i in ['.mov', '.mp4', '.avi', '.m4v']] not in file]
+		, start=1) if [i for i in ['.mov', '.mp4', '.avi', '.m4v']] not in file]
 
 	return files
 
@@ -35,21 +35,21 @@ def main():
 
 	# path = input("paste folder path: ")
 
-	path = r'T:\Ascential Events\WARC\Backup Server\Loading\Monthly content for Newgen\Project content - March 2020\WARC Awards 2020\_Raw papers'
+	path = r'D:\2020 Awards\2020 3. Asia Prize\entry forms'
 
-	path2 = r'T:\Ascential Events\WARC\Backup Server\Loading\Monthly content for Newgen\Project content - March 2020\WARC Awards 2020\Returned papers & abstracts'
+	# path2 = r'D:\2020 Awards\2020 3. Asia Prize\videos'
 
-	vid_path = r'T:\Ascential Events\WARC\Backup Server\Loading\Monthly content for Newgen\Project content - May 2020\MENA Prize 2020\videos'
+	vid_path = r'D:\2020 Awards\2020 3. Asia Prize\videos'
 
-	dst_dir = r'Abstracts cleanup\abstracts'
+	# dst_dir = r'Abstracts cleanup\abstracts'
 
-	print('Num	File')
+	print('Num		File')
 
 	# move_file(list_txts(path2), dst_dir)
 
-	# list_docxs(path)
+	list_docxs(path)
 
-	list_vids(vid_path)
+	# list_vids(vid_path)
 
 if __name__ == '__main__':
 	main()

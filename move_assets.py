@@ -51,15 +51,16 @@ def main():
 
 	dictionary = {
 		'surveys': ['_survey.docx'],
-		'entry forms': ['.docx', '.pdf'], 
+		'entry forms': ['.docx'], 
 		'videos': ['.mov', '.mp4', '.avi', '.m4v'],
-		'zips': ['.zip', '.rar']
+		'_archive': ['.pdf', '.pptx', '.png', '.jpg', '.jpeg', '.xls'],
+		'zips': ['.zip', '.rar', '.zipx', '.7z']
 	}
 
 	sg.theme('DarkPurple4')
 	
 	layout = [
-		[sg.Output(size=(42,20))],
+		[sg.Output(size=(160,20))],
 		[sg.Text('Paste award root folder path (Seagate HD) here:')],
 		[sg.InputText()],
 		[sg.Submit(), sg.Cancel()]
@@ -95,10 +96,10 @@ def main():
 						for key, value in dictionary.items():
 							if key != 'zips':
 								for i in value:
-									extensions(i, fpath, f'{path}\\{key}')
+									extensions(ext=i, path=fpath, dst=f'{path}\\{key}')
 							elif key == 'zips':
 								for i in value:
-									extensions(i, zip_path, f'{path}\\{key}')
+									extensions(ext=i, path=zip_path, dst=f'{path}\\{key}')
 
 						dir_handler(fpath)
 						print('\n### Script Finished ###\n')
